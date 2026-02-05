@@ -31,9 +31,17 @@ Integrity is protected by two layers:
 - **Constraints** (e.g., NOT NULL, UNIQUE) define the rules of the data.
 - **Transactions** ensure the steps to save that data are completed safely.
 
+
 #### Transaction and Constraint Flow
 
-![Transaction and Constraint Flow](diagrams/transaction_flow.png)
+```mermaid
+flowchart TD
+	A[Start Transaction] --> B{Check Constraints}
+	B -->|Violation| C[Rollback / Error]
+	B -->|Success| D[Execute Logic]
+	D --> E[Commit to Disk]
+	E --> F[Data is Durable]
+```
 
 **References:**
 - PostgreSQL Global Development Group (2026). Documentation.
@@ -51,9 +59,30 @@ The B-Tree (Balanced Tree) is the primary indexing method used in relational dat
 - **Joins:** Facilitates rapid matching of primary and foreign keys.
 - **Ordering:** B-Trees are naturally sorted, making `ORDER BY` operations faster.
 
+
 #### B-Tree Visualization
 
-![B-Tree Visualization](diagrams/btree.png)
+```mermaid
+flowchart TD
+	R[Root Node [50]]:::root
+	B1[Branch [25]]:::branch
+	B2[Branch [75]]:::branch
+	L1[Leaf 10, 20]:::leaf
+	L2[Leaf 30, 40]:::leaf
+	L3[Leaf 60, 70]:::leaf
+	L4[Leaf 80, 90]:::leaf
+
+	R --> B1
+	R --> B2
+	B1 --> L1
+	B1 --> L2
+	B2 --> L3
+	B2 --> L4
+
+	classDef root fill:#3498db,color:#fff;
+	classDef branch fill:#9b59b6,color:#fff;
+	classDef leaf fill:#1abc9c,color:#fff;
+```
 
 ### 2. Hash and Bitmap Indexes
 
