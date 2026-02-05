@@ -1,0 +1,127 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Graphics & Captions purposes
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+%Modern Bibliography with separate references per section
+\usepackage[backend=biber, style=authoryear, sitestyle=authoryear, sorting=nty, refsection=section, hyperref=true, backref=true, maxcitenames=2, giveninits=true]{biblatex}
+
+% Add bib files (both)
+\addbibresource{q1_references.bib}
+\addbibresource{q1_references.bib}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdfcreator={Compiled by Khayalethu}
+}
+
+% Title & Metadata
+\title{\textbf{Database \& SQL Basics Research Project}}
+\author{Khayalethu \\ Johannesburg, Gauteng \\ Febreuary 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{q1_relational_model_diagram.png}
+\end{center}
+
+\vspace{1cm}
+\tableofcontents
+\newpage
+
+% ====================================================================================
+\section{Introduction}
+% ====================================================================================
+
+The relational database model remains the foundation of modern data management systems. This report explains fundamental concepts as required by the assignment:
+
+\begin{enumerate}
+    \item The core principles of the Relational Model (relations, tuples, attributes, domains) and the critical role of logical data independence.
+    \item The different types of keys and datbase constraints that ensure high-quality, anaomaly-free database design.
+\end{enumerate}
+
+All diagrams were generated using Python/matplotlib. Sources are limited to official documentation such as academic papers and reputable educational site as specified.
+
+\newpage
+
+% ====================================================================================
+\section{Relational Model Foundations}
+% ====================================================================================
+
+The relational model, instroduced by Edgar F. Codd in 1970, represents data as mathematical relations \parencite{codd1970relational}.
+
+\begin{itemize}
+    \item \textbf{Relation} > A table with rows and columns (formally a subset of Cartesian product of domains).
+    \item \textbf{Tuple} > A single row in a relation (represents one real world entity or fact).
+    \item \textbf{Attribute} > A column in a relation (has a name and is drawn from a specific domain).
+    \item \textbf{Domain} > The set of allowed values for an attribute (includes data type and semantic constraints) \parencite{geeksforgeeks_relational_model, oracle_relational_database}.
+\end{itemize}
+
+\textbf{Logicak data independence} is one of the most important benefits of the relational model. It allows changes to the physical storage (indexes, file organisation, partitioning, hardware) without requiring changes to application queries or logical schema \parencite{cmu_logical_indepedence}. This dramatically reduces maintenance costs and enables seamless scaling in modern cloud databases.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{q1_relational_model_diagram.png}
+    \caption{Relational model components with domains and logical independence highlighted}
+    \label{fig:q1}
+\end{figure}
+
+\printbibliography[heading=subbibliography, title={References - Relational Model Foundations}]
+
+\newpage\
+
+% ====================================================================================
+\section{Keys \& Constraints in Design Quality}
+% ====================================================================================
+
+Keys and constraints are essential for maintaining data integrity and preventing anomalies.
+
+\subsection{Types of Keys}
+\begin{itemize}
+    \item \textbf{Candidate Key}: Minimal set of attributes that uniquely identifies a tuple.
+    \item \textbf{Primary Key}: Chosen candidate key for the relation (must be 'NOT NULL').
+    \item \textbf{Surrogate Key}: Artificial key with no business meaning - widely used in practice.
+    \item \textbf{Foreign Key}: Attribute(s) that create adn enforce a link between two tables \parencite{geeksforgeeks_keys, baeldung_sql_keys, mariadb_table_keys}.
+\end{itemize}
+
+\subsection{Integrity Constraints}
+\begin{itemize}
+    \item \textbf{NOT NULL} > Prevents missing values in critical columns.
+    \item \textbf{UNIQUE} > Ebsures no duplicates.
+    \item \textbf{CHECK} > Enforces domain-level business rules.
+    \item \textbf{Referential Integrity (Foreign Key)} > Prevents invalid references \parencites{geeksforgeeks_integrity_constraints, postgresql_constraints}.
+\end{itemize}
+
+These constraints collectively protect against insertion, update and deletion anomalies, ensuring the database remains consistent and reliabble throughout its lifecycle.
+
+\begin{figure}[ht]
+    \centering 
+    \includegraphics[width=\textwidth]{q2_keys_constraints_diagram.png}
+    \caption{Keys and constraints in action: Employee and Departments tables with surrogate key, foreign key and referential integrity}
+    \label{fig:q2}
+\end{figure}
+
+\printbibliography[heading=subbibliography, title={References - Keys \& Constraints}]
+
+% ====================================================================================
+\section{Conclusion}
+% ====================================================================================
+
+The relational model, with its strong theoretical foundation and practical features like logical independence, keys and constraints, continues to dominate data managements 50+ years after its introduction. Proper understanding and application of these essential concenpts are essential for designing robust, scalable and maintainable databases.
+
+\end{document}
